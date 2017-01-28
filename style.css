@@ -26,24 +26,31 @@ body {
     height: 100%;
     width: 100%
 }
-
 .top-left {
     display: block;
     position: absolute;
     left: 2.4em;
     top: 2.4em;
-    width: 80%
+    width: 80%;
+    background-color: #fff;
 }
 .top-left h1 {
     font-size: 1.2em;
     margin-bottom: 2em;
+    background-color: #000;
+    color: #fff;
 }
 .top-left h2 {
-    font-size: 3vh;
+    font-size: 2vh;
 }
+.top-left p {
+    font-size: 1.75vh;
+}
+
 .top-left a {
 	border-bottom: 1px solid #000;
-    color: #000
+    color: #000;
+    font-size: 1.75vh;
 }
 .top-left a:hover {
 	border-bottom: none;

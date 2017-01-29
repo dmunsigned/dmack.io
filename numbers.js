@@ -146,15 +146,15 @@ function draw() {
             grid[x][y].render();
         }
     }
-    if (shouldAnimate) {
-        if (mouseXCell >= 0 && mouseXCell < gridDensity && 
-            mouseYCell >= 0 && mouseYCell < gridDensityVert) {
+    
+    if (mouseXCell >= 0 && mouseXCell < gridDensity && 
+        mouseYCell >= 0 && mouseYCell < gridDensityVert) {
 
-            goodXCell = mouseXCell;
-            goodYCell = mouseYCell;
-            grid[mouseXCell][mouseYCell].setActive();
-        }
+        goodXCell = mouseXCell;
+        goodYCell = mouseYCell;
+        grid[mouseXCell][mouseYCell].setActive();
     }
+    
     
     if (!shouldAnimate) {
         //Search Siblings

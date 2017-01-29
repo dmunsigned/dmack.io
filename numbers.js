@@ -30,20 +30,23 @@ gridCell.prototype.updateNumber = function () {
     
 }
 gridCell.prototype.renderText = function() {
-    fill(0,0,0);
-    text(this.number, this.x*this.width, (this.y*this.height) + this.height/2);
+    //fill(0,0,0);
+    var tWidth = textWidth(this.number);
+    var xOffset = 0;
+    if (tWidth < this.width) { xOffset = (this.width - tWidth) / 2; }
+    fill(225,225,225);
+    text(this.number, this.x*this.width+xOffset, (this.y*this.height) + this.height/2);
 }
 gridCell.prototype.render = function () {
-    this.width = windowWidth / gridDensity;
-    this.height = windowHeight / gridDensityVert;
-    
+    this.width = Math.round(windowWidth / gridDensity);
+    this.height = Math.round(windowHeight / gridDensityVert);
     
     noStroke();
     if (shouldAnimate) {
         this.influence = 0;
         if (Math.random() > 0.98) {
             fill(0, 0, 0);
-            rect(this.x * this.width, this.y * this.height, this.width-2, this.height-2);
+            rect(this.x * this.width, this.y * this.height, this.width, this.height);
         }
         fill(0,0,0)
         this.updateNumber();
@@ -51,21 +54,32 @@ gridCell.prototype.render = function () {
     this.renderText();
 }
 gridCell.prototype.setActive = function () {
-    fill(25, 50, 75);
-    rect(this.x * this.width, this.y * this.height, this.width-2, this.height-2);
+    //fill(25, 50, 75);
+    fill("#F2AB28");
+    rect(this.x * this.width, this.y * this.height, this.width, this.height);
+    this.renderText();
 }
 gridCell.prototype.addInfluence = function () {
     this.influence += 0.2;
     if (this.influence > 255) {this.influence = 255;}
     fill(255 - this.influence, 255 - this.influence, 255 - this.influence);
-    rect(this.x * this.width, this.y * this.height, this.width-2, this.height-2);
+    rect(this.x * this.width, this.y * this.height, this.width, this.height);
     this.renderText();
 }
 
 
+
 //P5 Shit
 function setup() {
-    createCanvas(windowWidth, windowHeight);
+    var cnv = createCanvas(windowWidth, windowHeight);
+    cnv.parent('canvas-container');
+    cnv.position(0,0);
+    
+    //Text
+    textFont("Anonymous Pro");
+    textAlign(LEFT);
+    textSize(10);
+    
     //Create Grid
     if (windowWidth > windowHeight) {
         gridDensityVert = Math.floor(gridDensity * (windowWidth/windowHeight));
@@ -116,6 +130,7 @@ function setup() {
             }
         }
     }
+    shouldAnimate = true;
 }
 
 function draw() {
@@ -125,19 +140,20 @@ function draw() {
     var goodXCell = -1;
     var goodYCell = -1;
     
-    background(255,255,255, 200);
+    background(255,255,255, 100);
     for (var x = 0; x < grid.length; x++) {
         for (var y = 0; y < grid[x].length; y++) {
             grid[x][y].render();
         }
     }
-    if (mouseXCell >= 0 && mouseXCell < gridDensity && 
-        mouseYCell >= 0 && mouseYCell < gridDensityVert) {
-        
-        goodXCell = mouseXCell;
-        goodYCell = mouseYCell;
-        
-        grid[mouseXCell][mouseYCell].setActive();
+    if (shouldAnimate) {
+        if (mouseXCell >= 0 && mouseXCell < gridDensity && 
+            mouseYCell >= 0 && mouseYCell < gridDensityVert) {
+
+            goodXCell = mouseXCell;
+            goodYCell = mouseYCell;
+            grid[mouseXCell][mouseYCell].setActive();
+        }
     }
     
     if (!shouldAnimate) {

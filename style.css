@@ -16,7 +16,8 @@
         -webkit-font-feature-settings: 'liga' 1;
         -o-font-feature-settings: 'liga' 1;
         -ms-font-feature-settings: 'liga' 1;
-        font-feature-settings: 'liga' 1
+        font-feature-settings: 'liga' 1;
+        
     }
 }
 
@@ -24,7 +25,7 @@ body {
     background-color: #;
     overflow: hidden;
     height: 100%;
-    width: 100%
+    width: 100%;
 }
 .top-left {
     display: block;
@@ -33,6 +34,7 @@ body {
     top: 2.4em;
     width: 80%;
     background-color: #fff;
+    z-index: 100;
 }
 .top-left h1 {
     font-size: 1.2em;
@@ -55,4 +57,8 @@ body {
 .top-left a:hover {
 	border-bottom: none;
     color: #000
+}
+
+#canvas-container {
+    z-index: 50;
 }

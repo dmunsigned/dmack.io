@@ -32,9 +32,13 @@ body {
     position: absolute;
     left: 2.4em;
     top: 2.4em;
-    width: 80%;
+    width: 60%;
     background-color: #fff;
     z-index: 100;
+    border-style: solid;
+    border-width: 15px;
+    border-color: #fff;
+    padding: 5px;
 }
 .top-left h1 {
     font-size: 1.2em;

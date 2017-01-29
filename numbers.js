@@ -5,7 +5,7 @@
 
 
 var grid = [];
-var gridDensity = 12;
+var gridDensity = 18;
 var gridDensityVert = gridDensity;
 
 var shouldAnimate = false;

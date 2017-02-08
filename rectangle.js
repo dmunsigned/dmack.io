@@ -1,7 +1,8 @@
 
 
 var _sound, _fft, _peak, _rects;
-
+var _isBeat = false;
+var _count = 1024;
 function rectObj () {
     this.x = random(0, width);
     this.y = random(0, height);
@@ -20,18 +21,27 @@ rectObj.prototype.render = function (spectData) {
     strokeWeight(_mult);
     if (this.horz) {
         line(this.x, this.y, this.x, this.y+this.length);
+        
         this.x += 2*(spectData / 255);
         if (this.x > width) {
             this.x=0;
-        }    
+        }   
+        
+        this.y += 0.5;
+        if (this.y > height) {this.y = 0; }
+        if (this.y < 0) {this.y = height; }
     }else{
         line(this.x, this.y, this.x + this.length, this.y);
+        
         this.y+= 2*(spectData / 255);
-        if (this.y > height) {
-            this.y=0;
-        }    
+        if (this.y > height) { this.y=0; }
+        
+        this.x += 0.5;
+        if (this.x > width) {this.x = 0; }
+        if (this.x < 0) {this.x = width;}
     }
     
+    if (_isBeat) {this.horz = !this.horz;}
 }
 
 
@@ -45,31 +55,35 @@ function setup() {
     cnv.parent('canvas-container');
     cnv.position(0,0);
     
-    _fft = new p5.FFT(0.8,256);
+    _fft = new p5.FFT(0.8,_count);
     
     
     _peak = new p5.PeakDetect();
+    _peak.threshold = 0.3;
     _sound.loop();
     
     _rects = []
-    for (var i = 0; i < 256; i++) {
+    for (var i = 0; i < _count; i++) {
         _rects[i] = new rectObj();
     }
 }
 
 function draw() {
-    background(0,0,0, 1);
+    background(0,0,0,1);
     
     var _s = _fft.analyze();
-    var _w = _fft.waveform();
+    _peak.update(_fft);
     
+    if (_peak.isDetected) {
+        console.log("beat");
+        _isBeat = true;
+    }
     
-    
-    for (var i = 0; i < _s.length; i++) {
-        
+    for (var i = 0; i < _s.length; i++) {    
         _rects[i].render(_s[i]);
     }
     
+    _isBeat = false;
 }
 
 function windowResized() {

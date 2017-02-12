@@ -52,7 +52,6 @@ body {
 .top-left p {
     font-size: 1.75vh;
 }
-
 .top-left a {
 	border-bottom: 1px solid #000;
     color: #000;
@@ -63,6 +62,35 @@ body {
     color: #000
 }
 
+.bottom-left {
+    display: block;
+    position: absolute;
+    left: 2.4em;
+    bottom: 2.4em;
+    width: 60%;
+    background-color: rgba(255,255,255,0);
+    z-index: 100;
+    border-style: none;
+    border-width: 5px;
+    border-color: #fff;
+    padding: 0px;
+}
+.bottom-left h1 {
+    font-size: 1em;
+    margin-bottom: 0.5em;
+    background-color: #000;
+    
+    color: #fff;
+}
+.bottom-left a {
+	border-bottom: 1px solid #000;
+    color: #000;
+    font-size: 1vh;
+}
+.bottom-left a:hover {
+	border-bottom: none;
+    color: #000
+}
 #canvas-container {
     z-index: 50;
 }
